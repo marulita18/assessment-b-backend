@@ -4,7 +4,7 @@ const corsMiddleWare = require("cors");
 const { PORT } = require("./config/constants");
 const authRouter = require("./routers/auth");
 const authMiddleWare = require("./auth/middleware");
-const spaceRouter = require("./routers/queries");
+const spaceRouter = require("./routers/space");
 const app = express();
 
 /**
