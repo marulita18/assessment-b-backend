@@ -78,13 +78,13 @@ router.post("/signup", async (req, res) => {
 // - get the users email & name using only their token
 // - checking if a token is (still) valid
 router.get("/me", authMiddleware, async (req, res) => {
-  const user = await User.findOne({
-    where: { email },
-    include: { model: Space, include: [Story] },
+  const space = await Space.findOne({
+    where: { userId: req.user.id },
+    include: [Story],
   });
   // don't send back the password hash
-  delete user.dataValues["password"];
-  return res.status(200).send({ ...user.dataValues });
+  delete req.user.dataValues["password"];
+  return res.status(200).send({ ...req.user.dataValues, space });
 });
 
 module.exports = router;

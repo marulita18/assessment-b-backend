@@ -8,10 +8,11 @@ router.delete("/:id", async (req, res, next) => {
   try {
     const storyId = parseInt(req.params.id);
     const storyToDelete = await Story.findByPk(storyId);
+    console.log("storytodelete", storyToDelete);
     if (!storyToDelete) {
-      res.status(404).send("Story not found");
+      return res.status(404).send({ message: "Story not found" });
     }
-    await storyToDelete.destroy();
+    storyToDelete.destroy();
     res.status(204).send({ message: "Story deleted" });
   } catch (e) {
     console.log(e.message);
