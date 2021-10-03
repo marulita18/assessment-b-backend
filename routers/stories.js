@@ -19,4 +19,24 @@ router.delete("/:id", async (req, res, next) => {
   }
 });
 
+router.post("/", auth, async (req, res, next) => {
+  try {
+    const { name, content, imageUrl, spaceId } = req.body;
+    if (!name || !content || !imageUrl || !spaceId) {
+      return res
+        .status(400)
+        .send({ message: "Please add the correct information" });
+    }
+    const newStory = await Story.create({
+      name,
+      content,
+      imageUrl,
+      spaceId,
+    });
+    res.status(201).send(newStory);
+  } catch (e) {
+    console.log(e.message);
+  }
+});
+
 module.exports = router;
